@@ -29,6 +29,7 @@ or redirected
 import axios from "axios";
 import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 let Login = (props) => {
   const [form, setValues] = useState({
@@ -74,12 +75,18 @@ let Login = (props) => {
 	<form onSubmit={handleSubmit}
 	onChange={handleChange}>
 	<h1>Login</h1>
-	<input placeholder="username"
-	name="username" />
-	<input placeholder="password"
-	name="password" />
-	<button>submit</button>
+	<div className="Login">
+		<input placeholder="username"
+		name="username" />
+		<input placeholder="password"
+		name="password" />
+		<button>Submit</button>
+	</div>
 	</form>
+	<div className="Login">
+		<NavLink to={"/ForgottenPassword"}>
+			Forgot my password</NavLink>
+	</div>
 	</>)
 }
 

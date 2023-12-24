@@ -26,6 +26,7 @@ router.post('/deleteCartItem', controller.removeItemFromCart);
 //getCart
 router.post('/getCart', controller.getCart);
 
-//removeItemFromCart
+//magicLink Login
+router.post('/enter', controller.loginWithMagicLink);
 
 module.exports = router;

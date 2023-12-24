@@ -18,7 +18,6 @@ import * as jose from "jose";
 import bulgogi from "./media/bulgogi.png"
 import injeolmi from "./media/Injeolmi.png"
 import sundubu from "./media/sundubu_jjigae.png"
-//no css, just pure react
 
 //stripe
 import {loadStripe} from '@stripe/stripe-js';
@@ -26,6 +25,9 @@ import {Elements} from '@stripe/react-stripe-js';
 import PaymentSuccess from "./containers/payment_success";
 import PaymentError from "./containers/payment_error";
 
+//magicLink
+import Enter from './components/Enter.js'
+import ForgottenPassword from "./components/ForgottenPassword.js"
 
 function App() {
 
@@ -203,6 +205,21 @@ let AddToCart = (idx) =>
   
 }
 
+//magic link
+let [thisEmail, setEmail] = useState('')
+
+let sendLink = async (email, magicLink, props) => {
+  try{
+    let res = await axios.post(`http://localhost:3030/Login/enter`,
+      {email: email ,magicLink})
+    if(res.data.ok)
+    {
+      login(res.data.token)
+    }
+    else
+      alert(res.data.message)
+  }catch(e){alert(e)}
+}
 
   return (
    <Router>
@@ -227,6 +244,18 @@ let AddToCart = (idx) =>
         <Route
           path="/payment/error"
           element={<PaymentError />}
+        />
+        <Route
+          path="/ForgottenPassword"
+          element={<ForgottenPassword 
+          login={login}
+          sendLink={sendLink}
+          thisEmail={thisEmail}
+          setEmail={setEmail}/>}
+        />
+        <Route
+          path="enter/:email/:link"
+          element={<Enter sendLink={sendLink} thisEmail={thisEmail}/>}
         />
       </Routes>
     </Router>
