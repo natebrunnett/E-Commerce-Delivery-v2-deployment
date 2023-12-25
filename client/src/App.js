@@ -15,9 +15,6 @@ import Products from "./components/Products.js"
 import Register from "./components/Register"
 import Cart from "./components/Cart"
 import * as jose from "jose";
-import bulgogi from "./media/bulgogi.png"
-import injeolmi from "./media/Injeolmi.png"
-import sundubu from "./media/sundubu_jjigae.png"
 
 //stripe
 import {loadStripe} from '@stripe/stripe-js';
@@ -39,6 +36,22 @@ const [cart, setCart] = useState([]);
 //stripe
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
+//products from db
+const [thisProducts, setProducts] = useState([]);
+
+useEffect(()=> {
+  const getProducts = async () => {
+    try{
+      console.log("trying products");
+      const response = await axios.get('http://localhost:3030/Products/');
+      //console.log(response)
+      setProducts(response.data);
+    }catch(e){  
+      console.log(e)
+    }
+  }
+  getProducts();
+}, [])
 
 useEffect(() => {
   const verify_token = async () => {
@@ -115,41 +128,29 @@ let login = (token) => {
 }
 
 
-  let thisProducts = [
-  { 
-  image: [sundubu],
-  name: "Sundubu Jjigae Tofu Stew",
-  description: "Spicey soup with tofu, mushrooms, clams and vegetables",
-  price: 1599, 
-  quantity: 1
-  },
-  { 
-  image: [injeolmi],
-  name: "Injeolmi",
-  description: "Brown sugar rice cakes. Dessert dish or appetizer! 6 pieces.",
-  price: 799,
-  quantity: 1
-  },
-  {
-  image: [bulgogi],
-  name: "Bulgogi Beef Dish",
-  description: "Rib-eye beef 600 grams",
-  price: 1699,
-  quantity: 1
-  }
-  ];
-
-/*
-let removeFromCart = (idx) => {
-get idx from cart, play around with
-the idx from cart, see if we cann
-remove a cart through the backend
-with the exact index...
-This means I would need to return
-an index from Cart.js that is
-and index from the Cart array.
-
-*/
+  // let thisProducts = [
+  // { 
+  // image: [sundubu],
+  // name: "Sundubu Jjigae Tofu Stew",
+  // description: "Spicey soup with tofu, mushrooms, clams and vegetables",
+  // price: 1599, 
+  // quantity: 1
+  // },
+  // { 
+  // image: [injeolmi],
+  // name: "Injeolmi",
+  // description: "Brown sugar rice cakes. Dessert dish or appetizer! 6 pieces.",
+  // price: 799,
+  // quantity: 1
+  // },
+  // {
+  // image: [bulgogi],
+  // name: "Bulgogi Beef Dish",
+  // description: "Rib-eye beef 600 grams",
+  // price: 1699,
+  // quantity: 1
+  // }
+  // ];
 
 
 //after a payment, plug id: all into this function and we will call a delete all function in the controller if id === all 

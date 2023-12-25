@@ -2,6 +2,7 @@ const express = require('express'),
 app = express(),
 mongoose = require('mongoose'), 
 userRoutes = require('./routes/userRoutes.js');
+productRoutes = require('./routes/productRoutes.js')
 
 // to print incoming requests from mongoose in the terminal
 mongoose.set('debug',true)
@@ -27,5 +28,11 @@ connecting()
 
 app.use('/payment', require('./routes/payment.route.js'));
 app.use('/Login', userRoutes);
+app.use('/Products', productRoutes);
+const path = require('path');
+// we need to import 'path' module from node.js
+
+app.use('/assets', express.static(path.join(__dirname, 'static')))
+
 
 app.listen(3030, () => console.log(`listening on port 3030`))
