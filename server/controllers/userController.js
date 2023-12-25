@@ -145,7 +145,12 @@ class User {
 		try{
 	       const user = await Users.findOne({username: name});
 	       if(!user) res.send("cannot find user");
-	       let newCart = user.cart;
+	       //if(id==="all"){
+								// await Users.updateOne(	{username: name},
+	       // 	{ cart: newCart  	})
+								// res.send({ok: true, message: "success"})
+								//}
+								let newCart = user.cart;
 	       for(let i = 0; i < newCart.length; i++)
 	       {
 	       	// console.log("idx " + String(newCart[i]['_id']));
