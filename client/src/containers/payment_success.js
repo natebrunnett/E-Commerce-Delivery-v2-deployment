@@ -27,6 +27,10 @@ const PaymentSuccess = () => {
       }
     };
     getSessionData();
+    //props.setCart('');
+    //and also in the db
+    //axios request to db to remove the cart
+    //userController needs clearCart route 
   }, []);
 
   return (
