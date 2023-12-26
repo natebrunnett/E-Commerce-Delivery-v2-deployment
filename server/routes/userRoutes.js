@@ -23,6 +23,9 @@ router.post('/update', controller.addItemToCart);
 //removeItemFromCart
 router.post('/deleteCartItem', controller.removeItemFromCart);
 
+//clearCart
+router.post('/clear', controller.clearCart);
+
 //getCart
 router.post('/getCart', controller.getCart);
 
