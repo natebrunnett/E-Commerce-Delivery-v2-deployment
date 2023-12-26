@@ -140,6 +140,24 @@ class User {
 	    };
 	}
 
+	async clearCart(req, res){
+		let {username: name} = req.body;
+		try{
+			const user = await Users.findOne({username: name});
+	       if(!user){
+	       	res.send({ok:false, message:"cannot find user"});
+	       } 
+	       if(true){
+			try{
+				await Users.updateOne(	{username: name},
+	        	{ cart: []  })
+				res.send({ok: true, message: "success"})
+			}
+			 catch(e){res.send({e, ok: false, message:"errir"})}
+		}}catch(e){res.send({e, ok:false,
+			message:"clear cart error"})}
+		}
+
 	async removeItemFromCart(req, res){
 		let { username: name, id: prodId} = req.body;
 		try{
@@ -147,14 +165,7 @@ class User {
 	       if(!user){
 	       	res.send({ok:false, message:"cannot find user"});
 	       } 
-	       if(prodId==="all"){
-			try{
-				await Users.updateOne(	{username: name},
-	        	{ cart: []  })
-				res.send({ok: true, message: "success"})
-			}
-			 catch(e){res.send({e, ok: false, message:"errir"})}
-			}
+	       
 		let newCart = user.cart;
 	       for(let i = 0; i < newCart.length; i++)
 	       {
