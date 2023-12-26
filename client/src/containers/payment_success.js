@@ -32,17 +32,18 @@ const PaymentSuccess = (props) => {
   useEffect(()=> {
     const clearCart = async () => {
       try{
-        props.setCart('');
+        props.setCart([]);
         const response = await axios.post(
-          `http://localhost:3030/Login/deleteCartItem`, {username: props.user, id: 'all'}
+          `http://localhost:3030/Login/clear`, {username: props.user}
         );
         console.log(response);
-    //props.setCart('');
+    //props.setCart
     //and also in the db
     //axios request to db to remove the cart
     //userController needs clearCart route 
 
-      }catch(e){debugger}
+      }catch(e){
+        console.log("clear cart catching")}
     }
     //execute here
     if(props.user){
