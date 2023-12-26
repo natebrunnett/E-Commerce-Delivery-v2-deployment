@@ -144,13 +144,18 @@ class User {
 		let { username: name, id: prodId} = req.body;
 		try{
 	       const user = await Users.findOne({username: name});
-	       if(!user) res.send("cannot find user");
-	       //if(id==="all"){
-								// await Users.updateOne(	{username: name},
-	       // 	{ cart: newCart  	})
-								// res.send({ok: true, message: "success"})
-								//}
-								let newCart = user.cart;
+	       if(!user){
+	       	res.send({ok:false, message:"cannot find user"});
+	       } 
+	       if(prodId==="all"){
+			try{
+				await Users.updateOne(	{username: name},
+	        	{ cart: []  })
+				res.send({ok: true, message: "success"})
+			}
+			 catch(e){res.send({e, ok: false, message:"errir"})}
+			}
+		let newCart = user.cart;
 	       for(let i = 0; i < newCart.length; i++)
 	       {
 	       	// console.log("idx " + String(newCart[i]['_id']));

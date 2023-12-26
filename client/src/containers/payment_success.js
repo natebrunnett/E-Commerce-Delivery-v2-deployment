@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-const PaymentSuccess = () => {
+const PaymentSuccess = (props) => {
   useEffect(() => {
     const getSessionData = async () => {
       // 11. Now when payment was successful we need to get back to Stripe to know what was paid for and who is the customer
@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
         const sessionId = JSON.parse(localStorage.getItem("sessionId"));
         // 13. And send request to checkout_session controller to get info from Stripe by session ID
         const response = await axios.get(
-          `http://localhost:4242/payment/checkout-session?sessionId=${sessionId}`
+          `http://localhost:3030/payment/checkout-session?sessionId=${sessionId}`
         );
         // Then removing session id from localStorage
         localStorage.removeItem("sessionId");
@@ -27,11 +27,29 @@ const PaymentSuccess = () => {
       }
     };
     getSessionData();
+  }, []);
+
+  useEffect(()=> {
+    const clearCart = async () => {
+      try{
+        props.setCart('');
+        const response = await axios.post(
+          `http://localhost:3030/Login/deleteCartItem`, {username: props.user, id: 'all'}
+        );
+        console.log(response);
     //props.setCart('');
     //and also in the db
     //axios request to db to remove the cart
     //userController needs clearCart route 
-  }, []);
+
+      }catch(e){debugger}
+    }
+    //execute here
+    if(props.user){
+      console.log("clearing cart for..." + props.user); 
+      clearCart(); 
+    }
+  }, [props.user])
 
   return (
     <div className="message_container">

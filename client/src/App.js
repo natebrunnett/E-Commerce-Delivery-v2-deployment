@@ -235,12 +235,15 @@ let sendLink = async (email, magicLink, props) => {
         <Route path="/Cart" element={
           <Elements stripe={stripePromise}>
             <Cart 
-            removeFromCart={removeFromCart} cart={cart}/>
+            removeFromCart={removeFromCart} cart={cart}
+            />
           </Elements>
         } />
         <Route
           path="/payment/success"
-          element={<PaymentSuccess />}
+          element={<PaymentSuccess
+          setCart={setCart} user={user}
+          />}
         />
         <Route
           path="/payment/error"
