@@ -72,7 +72,7 @@ const redirect = (sessionId) => {
     )
 
   useEffect(() => {
-    props.getCart();
+    if(props.user) props.getCart();
   }, [])
 
 	return(

@@ -84,7 +84,7 @@ const getCart = async () => {
       if (res.data !== "cannot find user") setCart(res.data);
     })
     .catch((err)=>{
-      console.log(err)
+      console.log("cart failing" + err)
     })
   }
 
@@ -237,7 +237,7 @@ let sendLink = async (email, magicLink, props) => {
           <Elements stripe={stripePromise}>
             <Cart 
             removeFromCart={removeFromCart} cart={cart}
-            getCart={getCart}
+            getCart={getCart} user={user}
             />
           </Elements>
         } />

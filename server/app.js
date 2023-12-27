@@ -34,16 +34,5 @@ const path = require('path');
 
 app.use('/assets', express.static(path.join(__dirname, 'static')))
 
-/*production on cyclic*/
-const path = require('path');
-
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
-
-/**/
 
 app.listen(3030, () => console.log(`listening on port 3030`))
