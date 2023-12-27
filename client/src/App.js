@@ -75,8 +75,7 @@ useEffect(() => {
   console.log("useEffect1=" + user)
 }, [token]);
 
-useEffect(()=>{
-  const getCart = async () => {
+const getCart = async () => {
     axios.post('http://localhost:3030/Login/getCart', 
       {username:user})
     .then((res) => {
@@ -88,6 +87,8 @@ useEffect(()=>{
       console.log(err)
     })
   }
+
+useEffect(()=>{
   console.log("useEffect2=" + user)
   if(user) getCart();
 }, [user])
@@ -236,6 +237,7 @@ let sendLink = async (email, magicLink, props) => {
           <Elements stripe={stripePromise}>
             <Cart 
             removeFromCart={removeFromCart} cart={cart}
+            getCart={getCart}
             />
           </Elements>
         } />

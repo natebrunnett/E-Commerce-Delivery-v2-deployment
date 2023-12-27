@@ -67,7 +67,7 @@ let Admin = () => {
       </ul>
       </div>
 
-      <div className="container">
+      <div className="remove">
       <h1>Remove User</h1>
       <input value={inputRemove} onChange={handleChange3}
       placeholder="user"/>

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useStripe } from "@stripe/react-stripe-js";
+import { useEffect } from "react"
 
 let Cart = (props) => {
   	const navigate = useNavigate();
@@ -69,6 +70,10 @@ const redirect = (sessionId) => {
     	<button onClick={() => props.removeFromCart(prod['_id'])}> x </button>	
     </div>)})
     )
+
+  useEffect(() => {
+    props.getCart();
+  }, [])
 
 	return(
 	<>

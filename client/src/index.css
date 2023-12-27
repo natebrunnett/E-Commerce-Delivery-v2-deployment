@@ -215,3 +215,7 @@ button {
 .Login {
   display: inline-grid;
 }
+
+.remove {
+  display: inline-grid;
+}
