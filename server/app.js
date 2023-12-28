@@ -21,7 +21,7 @@ mongoose.set('strictQuery', false);
 // connecting to mongo and checking if DB is running
 async function connecting(){
 try {
-    await mongoose.connect('mongodb://127.0.0.1/ECommerceDelivery')
+    await mongoose.connect(process.env.MONGO)
     console.log('Connected to the DB')
 } catch ( error ) {
     console.log('ERROR: Seems like your DB is not running, please start it up !!!');
