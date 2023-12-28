@@ -50,7 +50,7 @@ const [thisProducts, setProducts] = useState([]);
 useEffect(()=> {
   const getProducts = async () => {
     try{
-      console.log("trying products");
+      console.log("trying products, Hello World");
       const response = await axios.get(URL+'/Products/');
       //console.log(response)
       setProducts(response.data);
