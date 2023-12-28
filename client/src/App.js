@@ -55,7 +55,7 @@ useEffect(()=> {
       //console.log(response)
       setProducts(response.data);
     }catch(e){  
-      console.log("request to " URL + "failed")
+      console.log("request to " + URL + "failed")
       console.log(e)
     }
   }
