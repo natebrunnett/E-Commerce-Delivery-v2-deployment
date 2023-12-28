@@ -1,10 +1,4 @@
-E-Commerce-Delivery-v2 w/ Stripe and AdminBro (localhost only)
-	
- 	AdminBro
- 		$cd admin-bro-localhost
-   		$npm install
-     		Read README.md
-       		$nodemon
+E-Commerce-Delivery-v2 w/ Stripe 
 
 	Server
 		$cd server
