@@ -3,7 +3,7 @@
 # dependencies
 /client/node_modules
 /server/node_modules
-/admin-bro-localhost
+/admin-bro-localhost/
 /.pnp
 .pnp.js
 
