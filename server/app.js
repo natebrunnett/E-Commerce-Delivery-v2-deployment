@@ -14,6 +14,10 @@ app.use(cors())
 
 require('dotenv').config({ path: './.env' });
 
+/*Cyclic*/
+const PORT = process.env.PORT || 3030;
+mongoose.set('strictQuery', false);
+
 // connecting to mongo and checking if DB is running
 async function connecting(){
 try {
@@ -43,4 +47,4 @@ app.get('/*', function (req, res) {
 });
 
 /**/
-app.listen(3030, () => console.log(`listening on port 3030`))
+app.listen(PORT, () => console.log(`listening on port`))
