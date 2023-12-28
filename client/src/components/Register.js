@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+//config
+import URL from '../config.js';
 
 let Register = () => {
 
@@ -20,7 +22,7 @@ let Register = () => {
   }
 
   let addUser=()=>{
-    axios.post('http://localhost:3030/Login/add', {username:input1,
+    axios.post(URL+'/Login/add', {username:input1,
     password:input2})
     .then((res)=>{
       if(res.data.ok === false)

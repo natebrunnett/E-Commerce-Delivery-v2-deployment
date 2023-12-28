@@ -3,6 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useStripe } from "@stripe/react-stripe-js";
 import { useEffect } from "react"
+//config
+import URL from '../config.js';
+
 
 let Cart = (props) => {
   	const navigate = useNavigate();
@@ -21,7 +24,7 @@ let Cart = (props) => {
       debugger;
       // 2. Sending request to the create_checkout_session controller and passing products to be paid for
       const response = await axios.post(
-        `http://localhost:3030/payment/create-checkout-session`,
+        URL+`/payment/create-checkout-session`,
         { products: props.cart }
       );
       return response.data.ok

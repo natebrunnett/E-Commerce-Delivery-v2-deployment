@@ -30,6 +30,8 @@ import axios from "axios";
 import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+//config
+import URL from '../config.js';
 
 let Login = (props) => {
   const [form, setValues] = useState({
@@ -44,7 +46,7 @@ let Login = (props) => {
 		console.log("submit")
 		try{
 		const response = await 
-		axios.post('http://localhost:3030/Login/login', 
+		axios.post(URL+'/Login/login', 
 		{username: form.username,
         password: form.password,});
 		if(response.data.ok){

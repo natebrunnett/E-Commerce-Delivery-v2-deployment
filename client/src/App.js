@@ -26,7 +26,14 @@ import PaymentError from "./containers/payment_error";
 import Enter from './components/Enter.js'
 import ForgottenPassword from "./components/ForgottenPassword.js"
 
+//config
+import URL from './config.js';
+
 function App() {
+
+// useEffect(()=>{
+//   console.log("URL"+ URL)
+// },[])
 
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [user, setUser] = useState(null)
@@ -34,7 +41,8 @@ const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
 const [cart, setCart] = useState([]);
 
 //stripe
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY
+const stripePromise = loadStripe(apiKey);
 
 //products from db
 const [thisProducts, setProducts] = useState([]);
@@ -43,7 +51,7 @@ useEffect(()=> {
   const getProducts = async () => {
     try{
       console.log("trying products");
-      const response = await axios.get('http://localhost:3030/Products/');
+      const response = await axios.get(URL+'/Products/');
       //console.log(response)
       setProducts(response.data);
     }catch(e){  
@@ -63,7 +71,7 @@ useEffect(() => {
       } else {
         console.log("token found")
         axios.defaults.headers.common["Authorization"] = token;
-        const response = await axios.post('http://localhost:3030/Login/verifyToken');
+        const response = await axios.post(URL+'/Login/verifyToken');
         //console.log(response);
         return response.data.ok ? login(token) : logout();
       }
@@ -76,7 +84,7 @@ useEffect(() => {
 }, [token]);
 
 const getCart = async () => {
-    axios.post('http://localhost:3030/Login/getCart', 
+    axios.post(URL+'/Login/getCart', 
       {username:user})
     .then((res) => {
       // console.log("user " + user)
@@ -156,7 +164,7 @@ let login = (token) => {
 
 //after a payment, plug id: all into this function and we will call a delete all function in the controller if id === all 
 let removeFromCart = (thisId) => {
-  axios.post('http://localhost:3030/Login/deleteCartItem', 
+  axios.post(URL+'/Login/deleteCartItem', 
       {username:user, id: thisId})
     .then((res) => {
       setCart(res.data);
@@ -190,7 +198,7 @@ let AddToCart = (idx) =>
   //axios post will add newItem to cart in db
   //then it will return the updated cart
   //setCart with the newcart response
-  axios.post('http://localhost:3030/Login/update', 
+  axios.post(URL+'/Login/update', 
       {username:user, product: newItem})
     .then((res) => {
       setCart(res.data);
@@ -212,7 +220,7 @@ let [thisEmail, setEmail] = useState('')
 
 let sendLink = async (email, magicLink, props) => {
   try{
-    let res = await axios.post(`http://localhost:3030/Login/enter`,
+    let res = await axios.post(URL+`/Login/enter`,
       {email: email ,magicLink})
     if(res.data.ok)
     {

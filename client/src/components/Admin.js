@@ -1,5 +1,8 @@
 import {useState} from 'react';
 import axios from 'axios';
+//config
+import URL from '../config.js';
+
 
 let Admin = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +15,7 @@ let Admin = () => {
 
 
   let getUsers = () => {
-    axios.get('http://localhost:3030/Login')
+    axios.get(URL+'/Login')
     .then((res)=>{
       setUsers(res.data)
       console.log(res.data)
@@ -33,7 +36,7 @@ let Admin = () => {
 
 
   let removeUser=()=>{
-    axios.post('http://localhost:3030/Login/remove', {username:inputRemove})
+    axios.post(URL+'/Login/remove', {username:inputRemove})
     .then((res) => {
       console.log(res.data)
       alert(`User ${res.data.name} was removed`)
