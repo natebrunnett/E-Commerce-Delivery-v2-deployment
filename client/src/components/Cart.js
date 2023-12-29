@@ -70,7 +70,7 @@ const redirect = (sessionId) => {
     			<p className = "quantity">Quantity: {prod.quantity}</p>
     		</div>
     	</div>
-    	<button onClick={() => props.removeFromCart(prod['_id'])}> x </button>	
+    	<button onClick={() => props.removeFromCart(prod.id)}> x </button>	
     </div>)})
     )
 

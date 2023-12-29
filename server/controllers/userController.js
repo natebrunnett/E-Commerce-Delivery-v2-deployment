@@ -127,6 +127,7 @@ class User {
 	       const user = await Users.findOne({username: name});
 	       if(!user) res.send("cannot find user");
 	       let newCart = user.cart;
+	       prodObject.id = uuidv4();
 	       newCart.push(prodObject);
 	       const updatedUser = await Users.updateOne(
 	       	{username: name},
@@ -171,7 +172,7 @@ class User {
 	       {
 	       	// console.log("idx " + String(newCart[i]['_id']));
 	       	// console.log("key " + String(prodId))
-	       	if(String(newCart[i]['_id']) === String(prodId)){
+	       	if(String(newCart[i].id) === String(prodId)){
 	       		newCart.splice(i, 1);
 	       	}
 	       }
