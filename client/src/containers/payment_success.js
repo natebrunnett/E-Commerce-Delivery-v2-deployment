@@ -15,7 +15,7 @@ const PaymentSuccess = (props) => {
         const sessionId = JSON.parse(localStorage.getItem("sessionId"));
         // 13. And send request to checkout_session controller to get info from Stripe by session ID
         const response = await axios.get(
-          URL+`payment/checkout-session?sessionId=${sessionId}`
+          URL+`/payment/checkout-session?sessionId=${sessionId}`
         );
         // Then removing session id from localStorage
         localStorage.removeItem("sessionId");
@@ -37,7 +37,7 @@ const PaymentSuccess = (props) => {
       try{
         props.setCart([]);
         const response = await axios.post(
-          URL+`Login/clear`, {username: props.user}
+          URL+`/Login/clear`, {username: props.user}
         );
         console.log(response);
     //props.setCart

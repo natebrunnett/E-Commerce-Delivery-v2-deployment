@@ -251,7 +251,7 @@ let sendLink = async (email, magicLink, props) => {
           </Elements>
         } />
         <Route
-          path="/payment/success"
+          path="//payment/success"
           element={<PaymentSuccess
           setCart={setCart} user={user}
           />}
