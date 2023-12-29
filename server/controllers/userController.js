@@ -44,7 +44,7 @@ class User {
 		    		const status = send_magic_link(email,user.MagicLink)
 		    		/*debug: set variable as send magic link will return
 		    		a response, function has a delay, 10mins*/
-					res.send({ok:false,message:'Hit the link in email to sign in, can take up to 10mins', response: status})
+					res.send({ok:false,message:'Hit the link in email to sign in, can take up to 10mins', response: status.message})
 				}catch(e){res.send({e, ok: false, 
 					message:"failed to send mail"})}
 				//send back a signed token using user
