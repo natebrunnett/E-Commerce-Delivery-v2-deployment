@@ -6,7 +6,7 @@ const validator = require("validator");
 const {send_magic_link} = require('./emails.js')
 const { v4: uuidv4 } = require('uuid');
 
-class User {
+class Customer {
 
 	//magiclink
 	async loginWithMagicLink(req, res){
@@ -222,4 +222,4 @@ class User {
 	}
 }
 
-module.exports = new User()
+module.exports = new Customer()
