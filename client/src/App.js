@@ -228,7 +228,7 @@ let sendLink = async (email, magicLink, props) => {
       login(res.data.token)
     }
     else
-      alert(res.data.message + "Debug:" + res.data.data2.toString());
+      alert(res.data.message);
   }catch(e){alert(e)}
 }
 
