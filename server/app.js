@@ -1,7 +1,7 @@
 const express = require('express'), 
 app = express(),
 mongoose = require('mongoose'), 
-userRoutes = require('./routes/userRoutes.js');
+customerRoutes = require('./routes/customerRoutes.js');
 productRoutes = require('./routes/productRoutes.js')
 
 // to print incoming requests from mongoose in the terminal
@@ -31,7 +31,7 @@ connecting()
 // end of connecting to mongo and checking if DB is running
 
 app.use('/payment', require('./routes/payment.route.js'));
-app.use('/Login', userRoutes);
+app.use('/Login', customerRoutes);
 app.use('/Products', productRoutes);
 const path = require('path');
 // we need to import 'path' module from node.js

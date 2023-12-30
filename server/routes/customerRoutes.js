@@ -1,6 +1,6 @@
 const express     = require('express'),
     router        = express.Router(),
-    controller    = require('../controllers/userController.js');
+    controller    = require('../controllers/customerController.js');
 
 //findAll
 router.get('/', controller.findAllUsers);

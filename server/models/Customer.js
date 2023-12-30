@@ -19,7 +19,7 @@ const SubSchema = new mongoose.Schema({
 });
 
 
-const userSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   cart: [{ type: SubSchema, required: false }],
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
 {strictQuery: false}
 );
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model("customers", customerSchema);

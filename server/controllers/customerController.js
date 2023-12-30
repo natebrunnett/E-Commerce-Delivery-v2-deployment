@@ -1,4 +1,4 @@
-const Users = require('../models/User.js');
+const Customer = require('../models/Customer.js');
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 //magic link
@@ -20,7 +20,7 @@ class User {
 		//if we have a valid email and an email
 		try{
 			//find the username in the db
-			const user = await Users.findOne({ 
+			const user = await Customer.findOne({ 
 			username:email });
 			if(!user){
 				//option: add user
@@ -32,10 +32,10 @@ class User {
 				//into this function
 				//we will send it to the provided email
 				try{
-					//set the magicLink id in the userschema
+					//set the magicLink id in the Customerchema
 					//set the magiclink expired to false
 					//send magiclink
-					const user = await Users.findOneAndUpdate(
+					const user = await Customer.findOneAndUpdate(
 							{username:email}, 
 							{MagicLink: uuidv4(), MagicLinkExpired: false}, 
 							{returnDocument:'after'}
@@ -51,7 +51,7 @@ class User {
 			}else if(user.MagicLink == magicLink && !user.MagicLinkExpired) {
 		      const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, { expiresIn: "1h" }); //{expiresIn:'365d'}
 		      //set the variable to expired, and send back the token
-		      await Users.findOneAndUpdate(
+		      await Customer.findOneAndUpdate(
 		      	{username:email}, 
 		      	{MagicLinkExpired: true}
 		      	)
@@ -66,10 +66,10 @@ class User {
 
 	}
 
-	async findAllUsers(req, res){
+	async findAllCustomer(req, res){
 		try{
-			const users = await Users.find({});
-			res.send(users)
+			const Customer = await Customer.find({});
+			res.send(Customer)
 		}catch(e){
 			res.send({e})
 		}
@@ -82,13 +82,13 @@ class User {
 		let {username: name, password: passName}=req.body
 		try{
 			//first find if the username is taken
-			const user = await Users.findOne({username: name});
+			const user = await Customer.findOne({username: name});
 			if (user) return res.json({ ok: false, message: "User exists!"});
 			//next we will use validator
 			if (!validator.isEmail(name))
 				return res.json({ ok: false, message: "invalid email provided" });
 			const hash = await argon2.hash(passName, salt);
-			const user_added = await Users.create({
+			const user_added = await Customer.create({
 				username: name,
 				password: hash,
 			})
@@ -102,7 +102,7 @@ class User {
 	async delete (req, res){
 		let { username: name } = req.body;
 		try{
-			const removed = await Users.deleteOne({username: name});
+			const removed = await Customer.deleteOne({username: name});
 			res.send({name});
 		}
 		catch(error){
@@ -113,7 +113,7 @@ class User {
 	async getCart(req, res){
 		let { username: name } = req.body;
 		try{
-		   const user = await Users.findOne({username: name});
+		   const user = await Customer.findOne({username: name});
 	       if(!user) res.send("cannot find user");
 	       let currentCart = user.cart;
 	       res.send(currentCart);
@@ -126,12 +126,12 @@ class User {
 	async addItemToCart(req, res){
 		let { username: name, product: prodObject} = req.body;
 		try{
-	       const user = await Users.findOne({username: name});
+	       const user = await Customer.findOne({username: name});
 	       if(!user) res.send("cannot find user");
 	       let newCart = user.cart;
 	       prodObject.id = uuidv4();
 	       newCart.push(prodObject);
-	       const updatedUser = await Users.updateOne(
+	       const updatedUser = await Customer.updateOne(
 	       	{username: name},
 	       	{
 	       		cart: newCart
@@ -146,13 +146,13 @@ class User {
 	async clearCart(req, res){
 		let {username: name} = req.body;
 		try{
-			const user = await Users.findOne({username: name});
+			const user = await Customer.findOne({username: name});
 	       if(!user){
 	       	res.send({ok:false, message:"cannot find user"});
 	       } 
 	       if(true){
 			try{
-				await Users.updateOne(	{username: name},
+				await Customer.updateOne(	{username: name},
 	        	{ cart: []  })
 				res.send({ok: true, message: "success"})
 			}
@@ -164,7 +164,7 @@ class User {
 	async removeItemFromCart(req, res){
 		let { username: name, id: prodId} = req.body;
 		try{
-	       const user = await Users.findOne({username: name});
+	       const user = await Customer.findOne({username: name});
 	       if(!user){
 	       	res.send({ok:false, message:"cannot find user"});
 	       } 
@@ -178,7 +178,7 @@ class User {
 	       		newCart.splice(i, 1);
 	       	}
 	       }
-	       const updatedUser = await Users.updateOne(
+	       const updatedUser = await Customer.updateOne(
 	       	{username: name},
 	       	{
 	       		cart: newCart
@@ -193,7 +193,7 @@ class User {
 	async login(req, res){
 		let {username: name, password: passName}=req.body
 		try{
-			const user = await Users.findOne({username: name})
+			const user = await Customer.findOne({username: name})
 			if(!user) return res.json({ok:false, message:"User not found!"})
 			const match = await argon2.verify(user.password, passName);
 			if(match){
