@@ -42,7 +42,7 @@ class User {
 							);
 		    		// send email with magic link
 		    		send_magic_link(email,user.MagicLink)
-					res.send({ok:false,message:'Hit the link in email to sign in, can take up to 10mins')
+					res.send({ok:false,message:'Hit the link in email to sign in, can take up to 10mins'})
 				}catch(e){res.send({e, ok: false, 
 					message:"failed to send mail"})}
 				//send back a signed token using user
