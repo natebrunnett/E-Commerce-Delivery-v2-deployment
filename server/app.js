@@ -38,7 +38,7 @@ const UsersAdmin = require("./admin/resource_options/users.admin"); // replace t
 const buildAdminRouter = require("./admin/admin.router");
 
 const adminOptions = new AdminJS({
-  resources: [Categories, Products, UsersAdmin], // the models must be included in this array
+  resources: [Customers, Products, UsersAdmin], // the models must be included in this array
   rootPath: "/admin"
 });
 
