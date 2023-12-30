@@ -66,10 +66,10 @@ class User {
 
 	}
 
-	async findAllCustomer(req, res){
+	async findAllUsers(req, res){
 		try{
-			const Customer = await Customer.find({});
-			res.send(Customer)
+			const user = await Customer.find({});
+			res.send(user)
 		}catch(e){
 			res.send({e})
 		}
